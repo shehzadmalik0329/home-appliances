@@ -1,11 +1,13 @@
 package com.example.homeappliances.service;
 
+import com.example.homeappliances.exception.ApplianceNotFoundException;
 import com.example.homeappliances.model.Appliance;
 import com.example.homeappliances.repository.ApplianceRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -30,5 +32,14 @@ public class ApplianceService {
     public boolean deleteAppliance(UUID applianceId) {
         applianceRepository.deleteById(applianceId);
         return true;
+    }
+
+    public Appliance getApplianceById(UUID applianceId) {
+        return applianceRepository.findById(applianceId)
+                .orElseThrow(() -> new ApplianceNotFoundException("Appliance not found for ID "+applianceId));
+    }
+
+    public List<Appliance> getAllAppliances() {
+        return applianceRepository.findAll();
     }
 }

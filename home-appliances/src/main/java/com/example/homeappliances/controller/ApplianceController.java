@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -15,12 +16,12 @@ import java.util.UUID;
 public class ApplianceController {
     private final ApplianceService applianceService;
 
-    @PostMapping("/")
+    @PostMapping
     public UUID createAppliance(@RequestBody Appliance appliance) {
         return applianceService.createAppliance(appliance);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public UUID updateAppliance(@RequestBody Appliance appliance) {
         return applianceService.updateAppliance(appliance);
     }
@@ -28,5 +29,17 @@ public class ApplianceController {
     @DeleteMapping("/{applianceId}")
     public boolean deleteAppliance(@PathVariable("applianceId") UUID applianceId) {
         return applianceService.deleteAppliance(applianceId);
+    }
+
+    @GetMapping("/{applianceId}")
+    public Appliance getApplianceById(@PathVariable("applianceId") UUID applianceId) {
+        return applianceService.getApplianceById(applianceId);
+
+    }
+
+    @GetMapping
+    public List<Appliance> getAllAppliances() {
+        log.info("getAllAppliances");
+        return applianceService.getAllAppliances();
     }
 }
