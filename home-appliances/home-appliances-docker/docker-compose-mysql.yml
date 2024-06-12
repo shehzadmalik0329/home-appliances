@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  home-appliance-mysql:
+    image: mysql
+    container_name: home-appliance-mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: appliances
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    networks:
+      - micro-net
+
+networks:
+  micro-net:
+    driver: bridge
